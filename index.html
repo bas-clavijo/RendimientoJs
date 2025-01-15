@@ -118,7 +118,6 @@
 
         return new Promise(resolve =>{
             worker.onmessage = event => {
-                console.log('el worker dice:', event.data)
                 resolve(event.data)
             }
         })
@@ -160,7 +159,7 @@ const data = [...Array(1000).keys()]</textarea
         <article class="test-case">
           <header>
             <span class="test-number">1</span>
-            <span class="ops">2 ops/s</span>
+            <span class="ops"></span>
           </header>
 
           <textarea class="code" rows="1">data.find(x => x == 100)</textarea>
@@ -169,7 +168,7 @@ const data = [...Array(1000).keys()]</textarea
         <article class="test-case">
           <header>
             <span class="test-number">2</span>
-            <span class="ops">2 ops/s</span>
+            <span class="ops"></span>
           </header>
 
           <textarea class="code" rows="1">data.find(x => x == 200)</textarea>
@@ -178,7 +177,7 @@ const data = [...Array(1000).keys()]</textarea
         <article class="test-case">
           <header>
             <span class="test-number">3</span>
-            <span class="ops">2 ops/s</span>
+            <span class="ops"></span>
           </header>
 
           <textarea class="code" rows="1">data.find(x => x == 400)</textarea>
@@ -187,7 +186,7 @@ const data = [...Array(1000).keys()]</textarea
         <article class="test-case">
           <header>
             <span class="test-number">4</span>
-            <span class="ops">2 ops/s</span>
+            <span class="ops"></span>
           </header>
 
           <textarea class="code" rows="1">data.find(x => x == 800)</textarea>
