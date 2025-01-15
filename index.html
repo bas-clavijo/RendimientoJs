@@ -113,36 +113,22 @@
       const $sendButton = document.querySelector(".send-button");
 
       async function runTest({ code, data }) {
-    const duration = 1000; // = 1 segundo
+        const worker  = new Worker('worker.js')
+        worker.postMessage({code, data, duration: 1000})
 
-    let result;
-    try {
-        result = await eval(`(async () => {
-            let PERF__ops = 0;
-            let PERF__start = Date.now();
-            let PERF__end = Date.now() + ${duration};
-            ${data};
-    
-            while (Date.now() < PERF__end) {
-                ${code};
-                PERF__ops++;
+        return new Promise(resolve =>{
+            worker.onmessage = event => {
+                console.log('el worker dice:', event.data)
+                resolve(event.data)
             }
-            return PERF__ops;
-        })()`);
-    } catch (error) {
-        result = 0;
-        console.log(error);
-    }
-
-    return result;
-}
-
+        })
+      }
 
       async function runTestCases() {
         const $testCases = document.querySelectorAll(".test-case");
         const globalCode = $globalCode.value;
 
-        $testCases.forEach(async testCase => {
+        $testCases.forEach(async (testCase) => {
           const $code = testCase.querySelector(".code");
           const $ops = testCase.querySelector(".ops");
 
@@ -150,7 +136,7 @@
           $ops.textContent = "Cargando...";
 
           const result = await runTest({ code: codeValue, data: globalCode });
-          console.log(result);
+          $ops.textContent = `${result.toLocaleString()} ops/s`;
         });
       }
 
@@ -166,7 +152,9 @@
   <body>
     <main class="container">
       <h2>Global</h2>
-      <textarea id="global" class="code" rows="1">const data = [...Array(1000).keys()]</textarea>
+      <textarea id="global" class="code" rows="1">
+const data = [...Array(1000).keys()]</textarea
+      >
       <h2>Test cases</h2>
       <div class="test-cases">
         <article class="test-case">
