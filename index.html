@@ -113,29 +113,30 @@
       const $sendButton = document.querySelector(".send-button");
 
       async function runTest({ code, data }) {
-        const duration = 1000; // = 1 segundo
+    const duration = 1000; // = 1 segundo
 
-        let result;
-        try {
-          result = await eval(`(async () => {
+    let result;
+    try {
+        result = await eval(`(async () => {
             let PERF__ops = 0;
             let PERF__start = Date.now();
             let PERF__end = Date.now() + ${duration};
             ${data};
     
-            while (Date.now() <end){
+            while (Date.now() < PERF__end) {
                 ${code};
-                PERF__ops++
+                PERF__ops++;
             }
-            return PERF__ops
+            return PERF__ops;
         })()`);
-        } catch (error) {
-          result = 0;
-          console.log(error)
-        }
+    } catch (error) {
+        result = 0;
+        console.log(error);
+    }
 
-        return result;
-      }
+    return result;
+}
+
 
       async function runTestCases() {
         const $testCases = document.querySelectorAll(".test-case");
@@ -165,9 +166,7 @@
   <body>
     <main class="container">
       <h2>Global</h2>
-      <textarea id="global" class="code" rows="1">
-const data = [...Array(1000).keys()]</textarea
-      >
+      <textarea id="global" class="code" rows="1">const data = [...Array(1000).keys()]</textarea>
       <h2>Test cases</h2>
       <div class="test-cases">
         <article class="test-case">
@@ -176,7 +175,7 @@ const data = [...Array(1000).keys()]</textarea
             <span class="ops">2 ops/s</span>
           </header>
 
-          <textarea class="code" rows="1">DATA.find(i => i === 100)</textarea>
+          <textarea class="code" rows="1">data.find(x => x == 100)</textarea>
         </article>
 
         <article class="test-case">
@@ -185,7 +184,7 @@ const data = [...Array(1000).keys()]</textarea
             <span class="ops">2 ops/s</span>
           </header>
 
-          <textarea class="code" rows="1">DATA.find(i => i === 200)</textarea>
+          <textarea class="code" rows="1">data.find(x => x == 200)</textarea>
         </article>
 
         <article class="test-case">
@@ -194,7 +193,7 @@ const data = [...Array(1000).keys()]</textarea
             <span class="ops">2 ops/s</span>
           </header>
 
-          <textarea class="code" rows="1">DATA.find(i => i === 400)</textarea>
+          <textarea class="code" rows="1">data.find(x => x == 400)</textarea>
         </article>
 
         <article class="test-case">
@@ -203,7 +202,7 @@ const data = [...Array(1000).keys()]</textarea
             <span class="ops">2 ops/s</span>
           </header>
 
-          <textarea class="code" rows="1">DATA.find(i => i === 800)</textarea>
+          <textarea class="code" rows="1">data.find(x => x == 800)</textarea>
         </article>
       </div>
 
