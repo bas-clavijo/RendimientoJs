@@ -137,6 +137,8 @@
     <script type="module">
       const $globalCode = document.querySelector("#global");
       const $sendButton = document.querySelector(".send-button");
+      const $bars = document.querySelectorAll('.bar')
+      const $percentages = document.querySelectorAll('.percentage')
 
       async function runTest({ code, data }) {
         const worker  = new Worker('worker.js')
@@ -157,9 +159,13 @@
 
       async function runTestCases() {
         const $testCases = document.querySelectorAll(".test-case");
+
+        
+
         const globalCode = $globalCode.value;
 
-        $testCases.forEach(async (testCase) => {
+        const promises = Array.from($testCases).map(async(testCase, index)=>{
+
           const $code = testCase.querySelector(".code");
           const $ops = testCase.querySelector(".ops");
 
@@ -168,6 +174,24 @@
 
           const result = await runTest({ code: codeValue, data: globalCode });
           $ops.textContent = `${result.toLocaleString()} ops/s`;
+
+          return result
+
+        })
+
+        const results = await Promise.all(promises)
+        const maxOps = Math.max(...results)
+
+        results.forEach((result, index) => {
+          const bar = $bars[index]
+          const percentage = $percentages[index]
+
+          const height = result / maxOps * 300
+
+          bar.setAttribute('height', height)
+
+          const percentageValue = Math.round(result / maxOps * 100)
+          percentage.textContent = `${percentageValue}% `
         });
       }
 
