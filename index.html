@@ -22,12 +22,24 @@
         padding: 16px;
       }
 
-      .container {
+      .container{
+        max-width: 1200px;
+        margin: 0 auto;
+        display: flex;
+        gap: 32px;
+        justify-content: center;
+      }
+
+      @media(max-width: 768px){
+        .container {
+          flex-direction: column;
+        }
+      }
+
+      .content {
         display: flex;
         flex-direction: column;
         gap: 16px;
-        max-width: 1280px;
-        margin: 0 auto;
       }
 
       h2 {
@@ -120,7 +132,7 @@
 
         .bar{
           transform: scale(1, -1);
-          transition: height .3s ease;
+          transition: height .5s ease;
         }
 
         .percentages{
@@ -160,7 +172,8 @@
       async function runTestCases() {
         const $testCases = document.querySelectorAll(".test-case");
 
-        
+        $bars.forEach(bar => bar.setAttribute('height', 0))
+        $percentages.forEach(percentage => percentage.textContent = ``)
 
         const globalCode = $globalCode.value;
 
@@ -206,50 +219,53 @@
 
   <body>
     <main class="container">
-      <h2>Global</h2>
-      <textarea id="global" class="code" rows="1">
-const data = [...Array(1000).keys()]</textarea
-      >
-      <h2>Test cases</h2>
-      <div class="test-cases">
-        <article class="test-case">
-          <header>
-            <span class="test-number">1</span>
-            <span class="ops"></span>
-          </header>
+      <div class="content">
 
-          <textarea class="code" rows="1">data.find(x => x == 100)</textarea>
-        </article>
-
-        <article class="test-case">
-          <header>
-            <span class="test-number">2</span>
-            <span class="ops"></span>
-          </header>
-
-          <textarea class="code" rows="1">data.find(x => x == 200)</textarea>
-        </article>
-
-        <article class="test-case">
-          <header>
-            <span class="test-number">3</span>
-            <span class="ops"></span>
-          </header>
-
-          <textarea class="code" rows="1">data.find(x => x == 400)</textarea>
-        </article>
-
-        <article class="test-case">
-          <header>
-            <span class="test-number">4</span>
-            <span class="ops"></span>
-          </header>
-
-          <textarea class="code" rows="1">data.find(x => x == 800)</textarea>
-        </article>
+        <h2>Global</h2>
+        <textarea id="global" class="code" rows="1">
+  const data = [...Array(1000).keys()]</textarea
+        >
+        <h2>Test cases</h2>
+        <div class="test-cases">
+          <article class="test-case">
+            <header>
+              <span class="test-number">1</span>
+              <span class="ops"></span>
+            </header>
+  
+            <textarea class="code" rows="1">data.find(x => x == 100)</textarea>
+          </article>
+  
+          <article class="test-case">
+            <header>
+              <span class="test-number">2</span>
+              <span class="ops"></span>
+            </header>
+  
+            <textarea class="code" rows="1">data.find(x => x == 200)</textarea>
+          </article>
+  
+          <article class="test-case">
+            <header>
+              <span class="test-number">3</span>
+              <span class="ops"></span>
+            </header>
+  
+            <textarea class="code" rows="1">data.find(x => x == 400)</textarea>
+          </article>
+  
+          <article class="test-case">
+            <header>
+              <span class="test-number">4</span>
+              <span class="ops"></span>
+            </header>
+  
+            <textarea class="code" rows="1">data.find(x => x == 800)</textarea>
+          </article>
+        </div>
+  
+        <button class="send-button">Enviar</button>
       </div>
-
-      <button class="send-button">Enviar</button>
 
       <div class="chart-container">
         <svg class="chart" viewBox="0 0 200 300">
