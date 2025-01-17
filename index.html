@@ -20,10 +20,13 @@
         color: #fff;
         margin: 0;
         padding: 16px;
+        display: grid;
+        place-content: center;
+        min-height: 100vh;
       }
 
       .container{
-        max-width: 1200px;
+        max-width: 1280px;
         margin: 0 auto;
         display: flex;
         gap: 32px;
@@ -56,7 +59,7 @@
         border: 0;
         color: #d4d4d4;
         font-family: monospace;
-        font-size: 16px;
+        font-size: 12px;
         padding: 8px;
         resize: none;
         width: 100%;
@@ -123,7 +126,7 @@
         display: flex;
         flex-direction: column;
         align-items: center;
-
+        justify-content: center;
 
         .chart{
           width: 200px;
@@ -229,9 +232,7 @@
       <div class="content">
 
         <h2>Global</h2>
-        <textarea id="global" class="code" rows="1">
-  const data = [...Array(1000).keys()]</textarea
-        >
+        <textarea id="global" class="code" rows="1">const data = [...Array(1000).keys()]</textarea>
         <h2>Test cases</h2>
         <div class="test-cases">
           <article class="test-case">
@@ -239,7 +240,6 @@
               <span class="test-number">1</span>
               <span class="ops"></span>
             </header>
-  
             <textarea class="code" rows="1">data.find(x => x == 100)</textarea>
           </article>
   
@@ -248,7 +248,6 @@
               <span class="test-number">2</span>
               <span class="ops"></span>
             </header>
-  
             <textarea class="code" rows="1">data.find(x => x == 200)</textarea>
           </article>
   
@@ -257,7 +256,6 @@
               <span class="test-number">3</span>
               <span class="ops"></span>
             </header>
-  
             <textarea class="code" rows="1">data.find(x => x == 400)</textarea>
           </article>
   
@@ -266,7 +264,6 @@
               <span class="test-number">4</span>
               <span class="ops"></span>
             </header>
-  
             <textarea class="code" rows="1">data.find(x => x == 800)</textarea>
           </article>
         </div>
@@ -274,7 +271,7 @@
         <button class="send-button">Enviar</button>
       </div>
 
-      <div class="chart-container">
+      <aside class="chart-container">
         <svg class="chart" viewBox="0 0 200 300">
           <rect class="bar" x="20" y="-300" width="2px" height="300" fill="green"></rect>
           <rect class="bar" x="70" y="-300" width="2px" height="50" fill="yellow"></rect>
@@ -288,7 +285,7 @@
           <span class="percentage">60%</span>
           <span class="percentage">80%</span>
         </div>  
-      </div>
+      </aside>
 
     </main>
   </body>
