@@ -151,6 +151,7 @@
       const $sendButton = document.querySelector(".send-button");
       const $bars = document.querySelectorAll('.bar')
       const $percentages = document.querySelectorAll('.percentage')
+      const COLORS = ['green', 'yellow', 'orange', 'red', 'purple']
 
       async function runTest({ code, data }) {
         const worker  = new Worker('worker.js')
@@ -195,13 +196,19 @@
         const results = await Promise.all(promises)
         const maxOps = Math.max(...results)
 
+        const sortedResults = results.map((result, index) => ({result, index})).sort((a, b) => b.result - a.result )
+
         results.forEach((result, index) => {
           const bar = $bars[index]
           const percentage = $percentages[index]
+          
+          const indexColor =  sortedResults.findIndex(x => x.index === index)
+          const color = COLORS[indexColor]
 
           const height = result / maxOps * 300
 
           bar.setAttribute('height', height)
+          bar.setAttribute('fill',color)
 
           const percentageValue = Math.round(result / maxOps * 100)
           percentage.textContent = `${percentageValue}% `
